@@ -28,3 +28,9 @@ print("Critical Z-value:{:.3f}".format(critical_zvalues))
 print("Standard Error:{:.3f}".format(standard_error))
 print("Marginal Error:{:.3f}".format(Marginal_error))
 print("The {:.1%} confidence interval for the population proportion is lies between {:.3f} and {:.3f}".format(confidence_level,lower_bound,upper_bound))
+
+
+
+print("Hello world")
+print("Welcome")
+
