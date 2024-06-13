@@ -1,0 +1,30 @@
+import scipy.stats as stats
+import math
+
+#To find confidence Interval
+#No of occurence x=6
+#Sample size n=30
+#confidence level 0.95
+#remaining probability (alpha)
+
+x=6
+n=30
+confidence_level=0.95
+point_estimate=x/n
+alpha=1-confidence_level
+critical_zvalues=stats.norm.ppf(1-(alpha/2))
+standard_error=math.sqrt(point_estimate*(1-point_estimate)/n)
+Marginal_error=critical_zvalues*standard_error
+
+lower_bound=point_estimate-Marginal_error
+upper_bound=point_estimate+Marginal_error
+
+print("No of occurences:{:.3f}".format(x))
+print("Sample Size:{:.3f}".format(n))
+print("Confidence level:{:.3f}".format(confidence_level))
+print("Point Estimate: {:.3f}".format(point_estimate))
+print("Remaining probability (alpha): {:.3f}".format(alpha))
+print("Critical Z-value:{:.3f}".format(critical_zvalues))
+print("Standard Error:{:.3f}".format(standard_error))
+print("Marginal Error:{:.3f}".format(Marginal_error))
+print("The {:.1%} confidence interval for the population proportion is lies between {:.3f} and {:.3f}".format(confidence_level,lower_bound,upper_bound))
