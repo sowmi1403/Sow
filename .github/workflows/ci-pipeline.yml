@@ -34,15 +34,17 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@13.234.30.251 << 'EOF'
-            # Ensure the correct directory is used (root directory)
-            cd /root/my-node-app || exit
+            # Ensure pm2 is installed globally
+            sudo npm install pm2 -g
+            # Use sudo to access the directory
+            sudo cd /root/my-node-app || exit
             # Pull the latest code from the repository
-            git pull origin main
+            sudo git pull origin main
             # Install dependencies
-            npm install
-            # Install pm2 if not already installed
-            npm install pm2 -g
+            sudo npm install
             # Restart the application using pm2
-            pm2 restart app || pm2 start app.js --name app
+            sudo pm2 restart app || sudo pm2 start app.js --name app
           EOF
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
 
