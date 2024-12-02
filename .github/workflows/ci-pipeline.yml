@@ -34,8 +34,6 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@13.234.30.251 << 'EOF'
-            # Switch to root user to access the /root directory
-            sudo su -c "
             # Navigate to the correct directory
             cd /root/my-node-app || exit
             # Pull the latest code from the repository
@@ -46,7 +44,6 @@ jobs:
             npm install pm2 -g || exit
             # Start or restart the app using pm2
             pm2 restart /root/my-node-app/index.js || pm2 start /root/my-node-app/index.js --name app || exit
-            "
           EOF
         env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
