@@ -35,7 +35,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@13.234.30.251 << 'EOF'
             # Ensure the correct directory is used (root directory)
-            cd /home/ec2-user/my-node-app || exit
+            cd /root/my-node-app || exit
             # Pull the latest code from the repository
             git pull origin main
             # Install dependencies
