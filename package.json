@@ -1,17 +1,16 @@
 {
   "name": "my-node-app",
   "version": "1.0.0",
-  "description": "A Node.js app",
+  "description": "A simple Node.js app with Jest tests",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "start": "node index.js"
   },
-  "dependencies": {
-    "http": "^0.0.1"
-  },
   "devDependencies": {
-    "jest": "^27.0.6"
-  }
+    "jest": "^29.0.0"
+  },
+  "author": "Your Name",
+  "license": "ISC"
 }
 
