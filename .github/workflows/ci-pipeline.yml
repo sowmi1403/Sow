@@ -1,0 +1,36 @@
+name: Node.js CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHub will use an Ubuntu environment to run this job
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Checkout your repository
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Specify Node.js version to use
+
+      - name: Install dependencies
+        run: npm install  # Install the Node.js dependencies
+
+      - name: Run tests
+        run: npm test  # Run the tests (if any)
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@13.234.30.251 << 'EOF'
+            cd my-node-app && git pull origin main
+            npm install
+            pm2 restart app
+          EOF
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+
