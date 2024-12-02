@@ -24,13 +24,18 @@ jobs:
       - name: Run tests
         run: npm test  # Run the tests (if any)
 
+      - name: Set up SSH key
+        run: |
+          echo "${{ secrets.AWS_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          eval "$(ssh-agent -s)"
+          ssh-add private_key.pem
+
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@13.234.30.251 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@13.234.30.251 << 'EOF'
             cd my-node-app && git pull origin main
             npm install
             pm2 restart app
           EOF
-        env:
-          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
 
