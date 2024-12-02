@@ -42,8 +42,8 @@ jobs:
             sudo git pull origin main
             # Install dependencies
             sudo npm install
-            # Restart the application using pm2
-            sudo pm2 restart app || sudo pm2 start app.js --name app
+            # Restart the application using pm2 with the correct file name (index.js)
+            sudo pm2 restart index.js || sudo pm2 start index.js --name app
           EOF
         env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
